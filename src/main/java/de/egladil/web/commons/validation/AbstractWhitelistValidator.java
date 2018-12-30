@@ -1,5 +1,5 @@
 //=====================================================
-// Projekt: de.egladil.persistence.tools
+// Projekt: commons
 // (c) Heike Winkelvoß
 //=====================================================
 
@@ -22,7 +22,7 @@ public abstract class AbstractWhitelistValidator<A extends Annotation, T> implem
 	 * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
 	 */
 	@Override
-	public void initialize(A constraintAnnotation) {
+	public void initialize(final A constraintAnnotation) {
 		// nix
 	}
 
@@ -30,7 +30,7 @@ public abstract class AbstractWhitelistValidator<A extends Annotation, T> implem
 	 * @see javax.validation.ConstraintValidator#isValid(java.lang.Object, javax.validation.ConstraintValidatorContext)
 	 */
 	@Override
-	public boolean isValid(T value, ConstraintValidatorContext context) {
+	public boolean isValid(final T value, final ConstraintValidatorContext context) {
 		if (value == null) {
 			return true;
 		}

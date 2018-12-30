@@ -19,18 +19,20 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import de.egladil.web.commons.validation.LoginNameValidator;
+import de.egladil.web.commons.validation.HoneypotValidator;
+
+
 
 /**
- * Whitelist für Benutzernamen: Buchstaben, Ziffern, deutsche Umlaute sowie Unterstrich, Leerteichen, Minus, Punkt, Ausrufezeichen, '@'
+ * Wert muss entweder null sein oder (ungetrimmt) die Länge 0 haben.
  */
 @Documented
 @Retention(RUNTIME)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
-@Constraint(validatedBy = { LoginNameValidator.class })
-public @interface LoginName {
+@Constraint(validatedBy = { HoneypotValidator.class })
+public @interface Honeypot {
 
-	String message() default "{de.egladil.constraints.username}";
+	String message() default "{de.egladil.constraints.honeypot}";
 
 	Class<?>[] groups() default {};
 

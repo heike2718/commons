@@ -1,5 +1,5 @@
 //=====================================================
-// Projekt: de.egladil.bv.aas
+// Projekt: commons
 // (c) Heike Winkelvoß
 //=====================================================
 
@@ -25,7 +25,7 @@ public class PeriodChecker {
 	 * @param expectedPeriodMillis long Anzahl Millisekunden, die zwischen startDate und endDate liegen sollen.
 	 * @return boolean true, wenn kürzer oder gleich lang wie expectedLengthPeriod, false sonst.
 	 */
-	public boolean isPeriodLessEqualExpectedPeriod(Date startDate, Date endDate, long expectedPeriodMillis) {
+	public boolean isPeriodLessEqualExpectedPeriod(final Date startDate, final Date endDate, final long expectedPeriodMillis) {
 		long diff = endDate.getTime() - startDate.getTime();
 		LOG.debug("Interval: {}, Ende: {}, Start: {}, Differenz: {}", expectedPeriodMillis, endDate.getTime(), startDate.getTime(),
 			diff);

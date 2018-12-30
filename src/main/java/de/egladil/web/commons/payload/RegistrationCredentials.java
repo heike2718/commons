@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import de.egladil.web.commons.validation.annotations.Honeypot;
 import de.egladil.web.commons.validation.annotations.Passwort;
 import de.egladil.web.commons.validation.annotations.StringLatin;
 
@@ -46,6 +47,7 @@ public class RegistrationCredentials {
 	@Passwort
 	private String passwortWdh;
 
+	@Honeypot
 	private String kleber;
 
 	public String getVorname() {
