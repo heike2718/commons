@@ -3,7 +3,7 @@
 // (c) Heike Winkelvoß
 //=====================================================
 
-package de.egladil.web.commons.jwt;
+package de.egladil.web.commons.net;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -21,7 +21,7 @@ public class StaticContentProviderIT {
 	void getStaticContentSuccess() {
 		// Arrange
 		String endpoint = "http://localhost:9000/auth/public-key";
-		StaticContentProvider provider = new StaticContentProvider();
+		StaticContentProvider provider = new StaticContentProvider(new ResponsePayloadReader());
 
 		// Act
 		try {

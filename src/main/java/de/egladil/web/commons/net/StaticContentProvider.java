@@ -3,17 +3,12 @@
 // (c) Heike Winkelvoß
 //=====================================================
 
-package de.egladil.web.commons.jwt;
+package de.egladil.web.commons.net;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import de.egladil.web.commons.error.InvalidInputException;
 import de.egladil.web.commons.error.RequestTimeoutException;
 import de.egladil.web.commons.payload.ResponsePayload;
 
@@ -21,6 +16,15 @@ import de.egladil.web.commons.payload.ResponsePayload;
  * StaticContentProvider
  */
 public class StaticContentProvider {
+
+	private final ContentReader contentReader;
+
+	/**
+	 * Erzeugt eine Instanz von StaticContentProvider
+	 */
+	public StaticContentProvider(final ContentReader contentReader) {
+		this.contentReader = contentReader;
+	}
 
 	/**
 	 * Holt ein String-Data-Objekt aus dem endpoint. Der Response ist ein {@link ResponsePayload}- Objekt mit data als
@@ -40,23 +44,8 @@ public class StaticContentProvider {
 		conn.setConnectTimeout(timeout);
 		conn.setReadTimeout(timeout);
 
-		byte[] cert = this.readPublicKey(conn);
+		byte[] cert = this.contentReader.getBytes(conn);
 		return cert;
 
-	}
-
-	private byte[] readPublicKey(final URLConnection conn) throws IOException {
-
-		try (InputStreamReader in = new InputStreamReader(conn.getInputStream(), "UTF-8")) {
-			ObjectMapper objectMapper = new ObjectMapper();
-			ResponsePayload payload = objectMapper.readValue(in, ResponsePayload.class);
-			if ("INFO".equals(payload.getMessage().getLevel())) {
-				return payload.getData().toString().getBytes();
-			}
-
-			throw new InvalidInputException(payload);
-		} catch (SocketTimeoutException e) {
-			throw new RequestTimeoutException(e.getMessage(), e);
-		}
 	}
 }
