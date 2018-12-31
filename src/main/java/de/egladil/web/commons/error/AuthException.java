@@ -13,6 +13,9 @@ public class AuthException extends RuntimeException {
 	/* serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
+	public AuthException() {
+	}
+
 	public AuthException(final String arg0) {
 		super(arg0);
 	}
