@@ -6,10 +6,13 @@
 package de.egladil.web.commons.validation;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,6 +58,11 @@ public class ValidationUtils {
 			ConstraintViolation<T> cv = iter.next();
 			Path path = cv.getPropertyPath();
 			String propName = path.toString();
+
+			if ("kleber".equals(propName)) {
+				LOG.warn("Possible BOT-Attac: " + propName + "=" + cv.getInvalidValue().toString());
+			}
+
 			if (fieldNames.contains(propName)) {
 				String message = result.get(propName);
 				if (message == null) {
@@ -74,22 +82,25 @@ public class ValidationUtils {
 		Set<InvalidProperty> invalidProperties = new HashSet<>();
 
 		if (!messages.isEmpty()) {
+			int sortnr = 0;
 			for (String key : messages.keySet()) {
 
 				final String message = messages.get(key);
 				StringUtils.join(Arrays.stream(StringUtils.split(message, ',')).collect(Collectors.toSet()), ',');
 				InvalidProperty prop = new InvalidProperty(key,
-					StringUtils.join(Arrays.stream(StringUtils.split(message, ',')).collect(Collectors.toSet()), ','));
+					StringUtils.join(Arrays.stream(StringUtils.split(message, ',')).collect(Collectors.toSet()), ','), sortnr);
 				invalidProperties.add(prop);
-				if ("kleber".equals(key)) {
-					LOG.warn("Possible BOT-Attac: " + prop.toString());
-				}
+				sortnr++;
 			}
 		}
 		String crossValidation = extractCrossValidationMessage(errors);
-		ValidationErrors payload = new ValidationErrors(invalidProperties, crossValidation);
-		ResponsePayload result = new ResponsePayload(MessagePayload.error("Die Eingaben sind nicht korrekt."), payload);
+		if (StringUtils.isNotBlank(crossValidation)) {
+			invalidProperties.add(new InvalidProperty("CrossValidation", crossValidation, invalidProperties.size() + 1));
+		}
 
+		List<InvalidProperty> data = new ArrayList<>(invalidProperties);
+		Collections.sort(data, new InvalidPropertiesComparator());
+		ResponsePayload result = new ResponsePayload(MessagePayload.error("Die Eingaben sind nicht korrekt."), data);
 		return result;
 	}
 
@@ -99,11 +110,16 @@ public class ValidationUtils {
 		while (iter.hasNext()) {
 			final ConstraintViolation<T> cv = iter.next();
 			if (StringUtils.isBlank(cv.getPropertyPath().toString())) {
-				String message = cv.getMessage();
-				alle.add(message);
+				if (isMostDescriptive(cv)) {
+					alle.add(cv.getMessage());
+				}
 			}
 		}
 		return StringUtils.join(alle, ',');
+	}
+
+	<T> boolean isMostDescriptive(final ConstraintViolation<T> cv) {
+		return cv.getMessage().equals(cv.getMessageTemplate());
 	}
 
 	@SuppressWarnings("rawtypes")

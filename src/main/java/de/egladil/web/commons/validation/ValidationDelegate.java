@@ -65,7 +65,7 @@ public class ValidationDelegate {
 			ResponsePayload responsePayload = validationUtils.toConstraintViolationMessage(errors, clazz);
 
 			if (!"INFO".equals(responsePayload.getMessage().getLevel())) {
-				LOG.warn("{}: {}", responsePayload.getMessage().getMessage(), responsePayload.getData().toString());
+				LOG.debug("{}: {}", responsePayload.getMessage().getMessage(), responsePayload.getData().toString());
 			}
 
 			throw new InvalidInputException(responsePayload);

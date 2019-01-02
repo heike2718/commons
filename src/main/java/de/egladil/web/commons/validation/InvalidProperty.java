@@ -12,6 +12,8 @@ package de.egladil.web.commons.validation;
  */
 public class InvalidProperty {
 
+	private int sortnumber;
+
 	private String name;
 
 	private String message;
@@ -25,9 +27,10 @@ public class InvalidProperty {
 	/**
 	 * Erzeugt eine Instanz von InvalidProperties
 	 */
-	public InvalidProperty(final String fieldName, final String message) {
+	public InvalidProperty(final String fieldName, final String message, final int sortnumber) {
 		this.name = fieldName;
 		this.message = message;
+		this.sortnumber = sortnumber;
 	}
 
 	@Override
@@ -85,5 +88,9 @@ public class InvalidProperty {
 		builder.append(message);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public int getSortnumber() {
+		return sortnumber;
 	}
 }

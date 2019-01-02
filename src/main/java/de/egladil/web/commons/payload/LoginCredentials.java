@@ -5,7 +5,6 @@
 
 package de.egladil.web.commons.payload;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,22 +14,17 @@ import org.hibernate.validator.constraints.URL;
 import de.egladil.web.commons.validation.annotations.Honeypot;
 import de.egladil.web.commons.validation.annotations.Passwort;
 import de.egladil.web.commons.validation.annotations.StringLatin;
-import de.egladil.web.commons.validation.annotations.ValidRegistrationCredentials;
-
 
 /**
-* RegistrationCredentials
-*/
-@ValidRegistrationCredentials
-public class RegistrationCredentials {
+ * LoginCredentials
+ */
+public class LoginCredentials {
 
 	@NotNull
 	@URL
 	private String redirectUrl;
 
-	@NotNull
 	@Email
-	@Size(min = 1, max = 255)
 	private String email;
 
 	@StringLatin
@@ -41,46 +35,11 @@ public class RegistrationCredentials {
 	@Passwort
 	private String passwort;
 
-	@NotNull
-	@Passwort
-	private String passwortWdh;
-
-	@AssertTrue(message = "Bitte stimmen Sie den Datenschutzhinweisen zu.")
-	private boolean agbGelesen;
-
 	@Honeypot(message="")
 	private String kleber;
 
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(final String email) {
-		this.email = email;
-	}
-
-	public String getPasswort() {
-		return passwort;
-	}
-
-	public void setPasswort(final String passwort) {
-		this.passwort = passwort;
-	}
-
-	public String getPasswortWdh() {
-		return passwortWdh;
-	}
-
-	public void setPasswortWdh(final String passwortWdh) {
-		this.passwortWdh = passwortWdh;
-	}
-
-	public String getKleber() {
-		return kleber;
-	}
-
-	public void setKleber(final String kleber) {
-		this.kleber = kleber;
 	}
 
 	public String getLoginName() {
@@ -91,20 +50,32 @@ public class RegistrationCredentials {
 		this.loginName = loginName;
 	}
 
+	public String getPasswort() {
+		return passwort;
+	}
+
+	public void setPasswort(final String passwort) {
+		this.passwort = passwort;
+	}
+
+	public String getKleber() {
+		return kleber;
+	}
+
+	public void setKleber(final String kleber) {
+		this.kleber = kleber;
+	}
+
+	public void setEmail(final String email) {
+		this.email = email;
+	}
+
 	public String getRedirectUrl() {
 		return redirectUrl;
 	}
 
-	public void setRedirectUrl(final String redirectUrl) {
-		this.redirectUrl = redirectUrl;
-	}
-
-	public boolean isAgbGelesen() {
-		return agbGelesen;
-	}
-
-	public void setAgbGelesen(final boolean agbGelesen) {
-		this.agbGelesen = agbGelesen;
+	public void setRedirectUrl(final String clientId) {
+		this.redirectUrl = clientId;
 	}
 
 }
