@@ -26,9 +26,6 @@ public abstract class AbstractWhitelistValidator<A extends Annotation, T> implem
 		// nix
 	}
 
-	/**
-	 * @see javax.validation.ConstraintValidator#isValid(java.lang.Object, javax.validation.ConstraintValidatorContext)
-	 */
 	@Override
 	public boolean isValid(final T value, final ConstraintValidatorContext context) {
 		if (value == null) {
@@ -47,7 +44,7 @@ public abstract class AbstractWhitelistValidator<A extends Annotation, T> implem
 		return matches;
 	}
 
-	private Pattern getPattern() {
+	public Pattern getPattern() {
 		Pattern pattern = Pattern.compile(getWhitelist());
 		return pattern;
 	}

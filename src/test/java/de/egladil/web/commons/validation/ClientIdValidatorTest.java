@@ -22,24 +22,24 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.egladil.web.commons.validation.annotations.UuidString;
+import de.egladil.web.commons.validation.annotations.ClientId;
 
 /**
  * UuidStringValidatorTest
  */
-public class UuidStringValidatorTest {
+public class ClientIdValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ClientIdValidatorTest.class);
 
-	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
+	private static final String INVALID_CHARS = "!\"#$%&()*-/:;<>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
 
-	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
+	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+=";
 
 	private Validator validator;
 
 	private class TestObject {
 
-		@UuidString
+		@ClientId
 		private final String value;
 
 		/**
@@ -119,11 +119,11 @@ public class UuidStringValidatorTest {
 	}
 
 	@Test
-	@DisplayName("clientId valid")
+	@DisplayName("checklistenapp clientId valid")
 	void validate5() {
 
 		// Arrange
-		TestObject testObject = new TestObject("OdqqnVBej0i6ibueRQSDKrrfp4jYhMWd8Zyy3kmtHI");
+		TestObject testObject = new TestObject("OdqqnVBej+0i6ibueRQSDKrrfp4jYhMWd8Zyy3kmtHI=");
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 

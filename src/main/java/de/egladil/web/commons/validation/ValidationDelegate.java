@@ -5,12 +5,17 @@
 
 package de.egladil.web.commons.validation;
 
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
@@ -34,6 +39,38 @@ public class ValidationDelegate {
 	public ValidationDelegate() {
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		validator = validatorFactory.getValidator();
+	}
+
+	/**
+	 * Whitelist-Validation des gegebenen values.
+	 *
+	 * @param value String darf nicht blank sein
+	 * @param validator AbstractWhitelistValidator
+	 * @param maxLength int - 0 bedeutet keine Längenprüfung.
+	 */
+	public <T extends Annotation> void validate(final String value, final AbstractWhitelistValidator<T, String> validator,
+		final int maxLength) {
+
+		boolean valid = true;
+		String msg = null;
+
+		if (StringUtils.isBlank(value)) {
+			valid = false;
+			msg = "darf nicht leer sein";
+		} else if (maxLength > 0 && value.length() > maxLength) {
+			valid = false;
+			msg = "darf nicht länger als " + maxLength + " Zeichen sein";
+		} else {
+			Matcher matcher = validator.getPattern().matcher(value);
+			valid = matcher.matches();
+			msg = "enthält unerlaubte Zeichen";
+		}
+
+		if (!valid) {
+			ResponsePayload payload = new ResponsePayload(MessagePayload.error("Die Eingaben sind nicht korrekt."),
+				Arrays.asList(new InvalidProperty[] { new InvalidProperty("CrossValidation", msg, 0) }));
+			throw new InvalidInputException(payload);
+		}
 	}
 
 	/**
