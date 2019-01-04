@@ -22,8 +22,8 @@ import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
 
 import de.egladil.web.commons.email.CommonEmailService;
-import de.egladil.web.commons.email.EmailServiceCredentials;
 import de.egladil.web.commons.email.EmailDaten;
+import de.egladil.web.commons.email.EmailServiceCredentials;
 import de.egladil.web.commons.error.EmailException;
 import de.egladil.web.commons.error.InvalidMailAddressException;
 
@@ -36,7 +36,7 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 	private static final Logger LOG = LogManager.getLogger(CommonEmailServiceImpl.class.getName());
 
 	@Override
-	public boolean sendMail(final EmailDaten maildaten, final EmailServiceCredentials credentials)
+	public synchronized boolean sendMail(final EmailDaten maildaten, final EmailServiceCredentials credentials)
 		throws EmailException, InvalidMailAddressException {
 
 		if (maildaten == null) {

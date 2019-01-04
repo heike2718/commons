@@ -6,38 +6,38 @@
 package de.egladil.web.commons.payload;
 
 /**
- * User
+ * UserInfo
  */
-public class User {
+public class UserInfo {
 
-	private String subject;
+	private String uid;
 
 	private String email;
 
 	/**
-	 * Erzeugt eine Instanz von User
+	 * Erzeugt eine Instanz von UserInfo
 	 */
-	public User() {
+	public UserInfo() {
 	}
 
 	/**
-	 * Erzeugt eine Instanz von User
+	 * Erzeugt eine Instanz von UserInfo
 	 */
-	public User(final String subject, final String email) {
+	public UserInfo(final String subject, final String email) {
 		super();
-		this.subject = subject;
+		this.uid = subject;
 		this.email = email;
 	}
 
-	public String getSubject() {
-		return subject;
+	public String getUid() {
+		return uid;
 	}
 	public String getEmail() {
 		return email;
 	}
 
-	void setSubject(final String subject) {
-		this.subject = subject;
+	void setUid(final String subject) {
+		this.uid = subject;
 	}
 
 	void setEmail(final String email) {

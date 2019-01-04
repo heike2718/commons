@@ -123,7 +123,6 @@ public class RegistrationCredentialsValidationTest {
 		result.setLoginName("Herbert");
 		result.setPasswort("start123");
 		result.setPasswortWdh("start123");
-		result.setRedirectUrl("https://mathe-jung-alt.de/mkv/dashboard");
 
 		return result;
 	}

@@ -10,23 +10,17 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.URL;
-
 import de.egladil.web.commons.validation.annotations.Honeypot;
 import de.egladil.web.commons.validation.annotations.Passwort;
 import de.egladil.web.commons.validation.annotations.StringLatin;
 import de.egladil.web.commons.validation.annotations.ValidRegistrationCredentials;
-
+import de.egladil.web.commons.validation.beans.ClientCredentials;
 
 /**
-* RegistrationCredentials
-*/
+ * RegistrationCredentials
+ */
 @ValidRegistrationCredentials
 public class RegistrationCredentials {
-
-	@NotNull
-	@URL
-	private String redirectUrl;
 
 	@NotNull
 	@Email
@@ -48,7 +42,10 @@ public class RegistrationCredentials {
 	@AssertTrue(message = "Bitte stimmen Sie den Datenschutzhinweisen zu.")
 	private boolean agbGelesen;
 
-	@Honeypot(message="")
+	@NotNull
+	ClientCredentials clientCredentials;
+
+	@Honeypot(message = "")
 	private String kleber;
 
 	public String getEmail() {
@@ -91,14 +88,6 @@ public class RegistrationCredentials {
 		this.loginName = loginName;
 	}
 
-	public String getRedirectUrl() {
-		return redirectUrl;
-	}
-
-	public void setRedirectUrl(final String redirectUrl) {
-		this.redirectUrl = redirectUrl;
-	}
-
 	public boolean isAgbGelesen() {
 		return agbGelesen;
 	}
@@ -106,5 +95,18 @@ public class RegistrationCredentials {
 	public void setAgbGelesen(final boolean agbGelesen) {
 		this.agbGelesen = agbGelesen;
 	}
+
+	public ClientCredentials getClientCredentials() {
+		return clientCredentials;
+	}
+
+	public void setClientCredentials(final ClientCredentials clientCredentials) {
+		this.clientCredentials = clientCredentials;
+	}
+
+	public String printEmailLogin() {
+		return "[email='" + email + "', loginName='" + loginName + "']";
+	}
+
 
 }

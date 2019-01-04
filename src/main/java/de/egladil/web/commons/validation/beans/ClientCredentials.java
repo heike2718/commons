@@ -13,23 +13,29 @@ import org.hibernate.validator.constraints.URL;
 import de.egladil.web.commons.validation.annotations.ClientId;
 
 /**
- * SignInLogInRequestPayload
+ * ClientCredentials
  */
-public class SignInLogInRequestPayload {
+public class ClientCredentials {
 
 	@NotBlank
 	@ClientId
 	@Size(max = 50)
-	private final String clientId;
+	private String clientId;
 
 	@NotBlank
 	@URL
-	private final String redirectUrl;
+	private String redirectUrl;
 
 	/**
-	 * Erzeugt eine Instanz von SignInLogInRequestPayload
+	* Erzeugt eine Instanz von ClientCredentials
+	*/
+	public ClientCredentials() {
+	}
+
+	/**
+	 * Erzeugt eine Instanz von ClientCredentials
 	 */
-	public SignInLogInRequestPayload(@NotBlank @Size(max = 50) final String clientId, @NotBlank @URL final String redirectUrl) {
+	public ClientCredentials(@NotBlank @Size(max = 50) final String clientId, @NotBlank @URL final String redirectUrl) {
 		super();
 		this.clientId = clientId;
 		this.redirectUrl = redirectUrl;
