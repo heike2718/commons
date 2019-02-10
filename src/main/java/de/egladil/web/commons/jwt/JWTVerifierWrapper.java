@@ -25,8 +25,8 @@ import de.egladil.web.commons.net.ContentReader;
 import de.egladil.web.commons.net.ResponsePayloadReader;
 
 /**
- * JWTVerifierWrapper wrapped eine auth0- JWTVerifyer. Der PublicKey wird nach dem ersten Aufruf gelesen und dann nicht
- * ehr geändert. D.h., wenn auth-cert ausgetauscht wird, müssen alle Anwendungen durchgestartet werden.
+ * JWTVerifierWrapper wrapped einen auth0- JWTVerifyer. Der PublicKey wird nach dem ersten Aufruf gelesen und dann nicht
+ * mehr geändert. D.h., wenn auth-cert ausgetauscht wird, müssen alle Anwendungen durchgestartet werden.
  */
 public class JWTVerifierWrapper {
 
