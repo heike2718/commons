@@ -22,7 +22,7 @@ import javax.validation.Payload;
 import de.egladil.web.commons.validation.PasswortValidator;
 
 /**
- * mindestens 8 Zeichen, höchstens 20 Zeichen, mindestens ein Buchstabe, mindestens eine Ziffer, keine Leerzeichen<br>
+ * mindestens 8 Zeichen, höchstens 100 Zeichen, mindestens ein Buchstabe, mindestens eine Ziffer, keine Leerzeichen<br>
  * <br>
  * Erlaubte Sonderzeichen: !\"#$%&)(*+,-./:;<=>?@][^_'`'{|}~
  * Wenn der Wert null ist, wird er als gültig angesehen. Es muss also zusätzlich eine NotNull-Anntotation angebracht werden.

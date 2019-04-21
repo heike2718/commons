@@ -10,6 +10,7 @@ package de.egladil.web.commons.payload;
  */
 public enum AuthenticationTokenState {
 
+	empty,
 	login,
 	signup
 }

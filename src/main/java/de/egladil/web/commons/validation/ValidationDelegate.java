@@ -49,7 +49,7 @@ public class ValidationDelegate {
 	 * @param maxLength int - 0 bedeutet keine Längenprüfung.
 	 */
 	public <T extends Annotation> void validate(final String value, final AbstractWhitelistValidator<T, String> validator,
-		final int maxLength) {
+		final int maxLength) throws IllegalArgumentException, InvalidInputException {
 
 		boolean valid = true;
 		String msg = null;
