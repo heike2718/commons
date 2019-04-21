@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.egladil.web.commons.error.InvalidInputException;
-import de.egladil.web.commons.payload.RegistrationCredentials;
+import de.egladil.web.commons.payload.SignUpCredentials;
 import de.egladil.web.commons.payload.ResponsePayload;
 
 /**
@@ -33,19 +33,19 @@ public class RegistrationCredentialsValidationTest {
 
 	@Test
 	void validCredentialsIsValid() {
-		validationDelegate.check(getValidCredentials(), RegistrationCredentials.class);
+		validationDelegate.check(getValidCredentials(), SignUpCredentials.class);
 	}
 
 	@Test
 	void agbErforderlich() {
 
 		// Arrange
-		final RegistrationCredentials credentials = getValidCredentials();
+		final SignUpCredentials credentials = getValidCredentials();
 		credentials.setAgbGelesen(false);
 
 		// Act + Assert
 		final Throwable ex = assertThrows(InvalidInputException.class, () -> {
-			validationDelegate.check(credentials, RegistrationCredentials.class);
+			validationDelegate.check(credentials, SignUpCredentials.class);
 		});
 		InvalidInputException e = (InvalidInputException) ex;
 		ResponsePayload responsePayload = e.getResponsePayload();
@@ -64,12 +64,12 @@ public class RegistrationCredentialsValidationTest {
 	void passwordsNotEqual() {
 
 		// Arrange
-		final RegistrationCredentials credentials = getValidCredentials();
+		final SignUpCredentials credentials = getValidCredentials();
 		credentials.setPasswortWdh("123start");
 
 		// Act + Assert
 		final Throwable ex = assertThrows(InvalidInputException.class, () -> {
-			validationDelegate.check(credentials, RegistrationCredentials.class);
+			validationDelegate.check(credentials, SignUpCredentials.class);
 		});
 		InvalidInputException e = (InvalidInputException) ex;
 		ResponsePayload responsePayload = e.getResponsePayload();
@@ -88,13 +88,13 @@ public class RegistrationCredentialsValidationTest {
 	void multipleViolations() {
 
 		// Arrange
-		final RegistrationCredentials credentials = getValidCredentials();
+		final SignUpCredentials credentials = getValidCredentials();
 		credentials.setPasswortWdh("123start");
 		credentials.setKleber("hui");
 
 		// Act + Assert
 		final Throwable ex = assertThrows(InvalidInputException.class, () -> {
-			validationDelegate.check(credentials, RegistrationCredentials.class);
+			validationDelegate.check(credentials, SignUpCredentials.class);
 		});
 		InvalidInputException e = (InvalidInputException) ex;
 		ResponsePayload responsePayload = e.getResponsePayload();
@@ -116,8 +116,8 @@ public class RegistrationCredentialsValidationTest {
 		}
 	}
 
-	private RegistrationCredentials getValidCredentials() {
-		RegistrationCredentials result = new RegistrationCredentials();
+	private SignUpCredentials getValidCredentials() {
+		SignUpCredentials result = new SignUpCredentials();
 		result.setAgbGelesen(true);
 		result.setEmail("bla@eladil.de");
 		result.setLoginName("Herbert");

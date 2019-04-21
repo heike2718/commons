@@ -5,28 +5,35 @@
 
 package de.egladil.web.commons.payload;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.URL;
 
 import de.egladil.web.commons.validation.annotations.Honeypot;
 import de.egladil.web.commons.validation.annotations.Passwort;
 import de.egladil.web.commons.validation.annotations.StringLatin;
+import de.egladil.web.commons.validation.beans.ClientCredentials;
 
 /**
- * LoginCredentials
+ * LoginCredentials sind die Daten für die Authentisierung eines ResourceOwners erforderlich sind. Das sind die Daten
+ * des ResourceOwners:
+ * <ul>
+ * <li>Loginname/Email (der Kontext wird über den LoginCredentialsType mitgeteilt)</li>
+ * <li>Passwort</li>
+ * </ul>
+ *
+ * sowie des Clients, von dem aus zur LoginResource redirectet wurde:
+ *
+ * <ul>
+ * <li>clientId</li>
+ * <li>redirectUrl (Rücksprung)</li>
+ * </ul>
  */
 public class LoginCredentials {
 
 	@NotNull
-	@URL
-	private String redirectUrl;
+	private LoginCredentialsType loginCredentialsType;
 
-	@Email
-	private String email;
-
+	@NotNull
 	@StringLatin
 	@Size(max = 255)
 	private String loginName;
@@ -35,11 +42,18 @@ public class LoginCredentials {
 	@Passwort
 	private String passwort;
 
-	@Honeypot(message="")
+	@NotNull
+	private ClientCredentials clientCredentials;
+
+	@Honeypot(message = "")
 	private String kleber;
 
-	public String getEmail() {
-		return email;
+	public LoginCredentialsType getLoginCredentialsType() {
+		return loginCredentialsType;
+	}
+
+	public void setLoginCredentialsType(final LoginCredentialsType loginCredentialsType) {
+		this.loginCredentialsType = loginCredentialsType;
 	}
 
 	public String getLoginName() {
@@ -66,16 +80,12 @@ public class LoginCredentials {
 		this.kleber = kleber;
 	}
 
-	public void setEmail(final String email) {
-		this.email = email;
+	public ClientCredentials getClientCredentials() {
+		return clientCredentials;
 	}
 
-	public String getRedirectUrl() {
-		return redirectUrl;
-	}
-
-	public void setRedirectUrl(final String clientId) {
-		this.redirectUrl = clientId;
+	public void setClientCredentials(final ClientCredentials clientCredentials) {
+		this.clientCredentials = clientCredentials;
 	}
 
 }

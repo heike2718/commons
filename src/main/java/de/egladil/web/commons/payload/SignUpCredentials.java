@@ -17,10 +17,23 @@ import de.egladil.web.commons.validation.annotations.ValidRegistrationCredential
 import de.egladil.web.commons.validation.beans.ClientCredentials;
 
 /**
- * RegistrationCredentials
+ * SignUpCredentials enthalten die Credentials des ResourceOwners:
+ * <ul>
+ * <li>Mailadresse</li>
+ * <li>Loginname - darf null sein. In diesem Fall wird automatisch die Mailadresse verwendet</li>
+ * <li>Passwörter</li>
+ * <li>Info, dass den Datenschutzbestimmungen zugestimmt wurde</li>
+ * </ul>
+ *
+ * sowie des Clients, von dem aus zur Registrierungsresource redirectet wurde:
+ *
+ * <ul>
+ * <li>clientId</li>
+ * <li>redirectUrl (Rücksprung)</li>
+ * </ul>
  */
 @ValidRegistrationCredentials
-public class RegistrationCredentials {
+public class SignUpCredentials {
 
 	@NotNull
 	@Email
@@ -107,6 +120,5 @@ public class RegistrationCredentials {
 	public String printEmailLogin() {
 		return "[email='" + email + "', loginName='" + loginName + "']";
 	}
-
 
 }

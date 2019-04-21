@@ -8,17 +8,17 @@ package de.egladil.web.commons.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import de.egladil.web.commons.payload.RegistrationCredentials;
+import de.egladil.web.commons.payload.SignUpCredentials;
 import de.egladil.web.commons.validation.annotations.ValidRegistrationCredentials;
 
 /**
  * RegistrationCredentialsValidator
  */
 public class RegistrationCredentialsValidator
-	implements ConstraintValidator<ValidRegistrationCredentials, RegistrationCredentials> {
+	implements ConstraintValidator<ValidRegistrationCredentials, SignUpCredentials> {
 
 	@Override
-	public boolean isValid(final RegistrationCredentials value, final ConstraintValidatorContext context) {
+	public boolean isValid(final SignUpCredentials value, final ConstraintValidatorContext context) {
 		if (value == null) {
 			return true;
 		}

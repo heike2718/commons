@@ -6,9 +6,9 @@
 package de.egladil.web.commons.payload;
 
 /**
- * SignInLogInResponseData
+ * SignUpLogInResponseData enthalten die Daten, die nach einem SignUp oder einem SignIn
  */
-public class SignInLogInResponseData {
+public class SignUpLogInResponseData {
 
 	private String accessToken;
 
@@ -16,14 +16,14 @@ public class SignInLogInResponseData {
 
 	private String tokenType;
 
-	private String state;
+	private AuthenticationTokenState state;
 
 	private String idToken;
 
 	/**
-	 * Erzeugt eine Instanz von SignInLogInResponseData
+	 * Erzeugt eine Instanz von SignUpLogInResponseData
 	 */
-	SignInLogInResponseData() {
+	SignUpLogInResponseData() {
 	}
 
 	public String getAccessToken() {
@@ -50,11 +50,11 @@ public class SignInLogInResponseData {
 		this.tokenType = tokenType;
 	}
 
-	public String getState() {
+	public AuthenticationTokenState getState() {
 		return state;
 	}
 
-	void setState(final String state) {
+	public void setState(final AuthenticationTokenState state) {
 		this.state = state;
 	}
 

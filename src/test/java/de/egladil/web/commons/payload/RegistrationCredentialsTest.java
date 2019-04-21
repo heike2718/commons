@@ -20,7 +20,7 @@ public class RegistrationCredentialsTest {
 	@Test
 	void serialize() throws JsonProcessingException {
 		// Arrange
-		RegistrationCredentials cred = new RegistrationCredentials();
+		SignUpCredentials cred = new SignUpCredentials();
 		ClientCredentials clientCredentials = new ClientCredentials("WLJLH4vsldWapZrMZi2U5HKRBVpgyUiRTWwX7aiJd8nX",
 			"http://localhost:4200");
 		cred.setAgbGelesen(true);
