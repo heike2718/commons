@@ -30,7 +30,7 @@ import de.egladil.web.commons.validation.PassphraseValdator;
 @Constraint(validatedBy = { PassphraseValdator.class })
 public @interface Passphrase {
 
-	String message() default "{de.egladil.constraints.passwort}";
+	String message() default "{de.egladil.constraints.passphrase}";
 
 	Class<?>[] groups() default {};
 
