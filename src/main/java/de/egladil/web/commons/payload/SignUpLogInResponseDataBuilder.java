@@ -27,11 +27,16 @@ public class SignUpLogInResponseDataBuilder {
 		return this;
 	}
 
-	public SignUpLogInResponseDataBuilder withExpiresIn(final int expiresIn) {
+	public SignUpLogInResponseDataBuilder withRefreshToken(final String refreshToken) {
+		this.result.setRefreshToken(refreshToken);
+		return this;
+	}
+
+	public SignUpLogInResponseDataBuilder withExpiresAt(final long expiresIn) {
 		if (expiresIn < 0) {
 			throw new IllegalArgumentException("expiresIn must not be < 0");
 		}
-		this.result.setExpiresIn(expiresIn);
+		this.result.setExpiresAt(expiresIn);
 		return this;
 	}
 

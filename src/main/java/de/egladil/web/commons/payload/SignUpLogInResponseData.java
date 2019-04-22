@@ -6,19 +6,32 @@
 package de.egladil.web.commons.payload;
 
 /**
- * SignUpLogInResponseData enthalten die Daten, die nach einem SignUp oder einem SignIn
+ * SignUpLogInResponseData enthalten die Daten, die nach einem SignUp oder einem SignIn.
+ * <ul>
+ * <li><strong>accessToken: </strong> autorisiert den Client gegenüber dem AuthProvider, wenn zusätzliche Daten wie email
+ * und loginname gelesen werden sollen.</li>
+ * <li><strong>refreshToken: </strong> autorisiert den Client gegenüber dem AuthProvider, ein neues JWT zu holen</li>
+ * <li><strong>expiresAt: </strong> Ablauf der Gültigkeit des idTokens in Millisekunden seit 1.1.1970</li>
+ * <li><strong>tokenType: </strong> Bearer</li>
+ * <li><strong>state: </strong>Kontext zur Aktion (Login, SignUp): empty, login, signup. empty kommt mit, wenn
+ * Authentisierung nicht erfolgreich war?</li>
+ * <li><strong>idToken: </strong> das JWT</li>
+ * </ul>
  */
 public class SignUpLogInResponseData {
 
 	private String accessToken;
 
-	private int expiresIn;
+	private String refreshToken;
+
+	private long expiresAt;
 
 	private String tokenType;
 
 	private AuthenticationTokenState state;
 
 	private String idToken;
+
 
 	/**
 	 * Erzeugt eine Instanz von SignUpLogInResponseData
@@ -34,12 +47,12 @@ public class SignUpLogInResponseData {
 		this.accessToken = accessToken;
 	}
 
-	public int getExpiresIn() {
-		return expiresIn;
+	public long getExpiresAt() {
+		return expiresAt;
 	}
 
-	void setExpiresIn(final int expiresIn) {
-		this.expiresIn = expiresIn;
+	void setExpiresAt(final long expiresAt) {
+		this.expiresAt = expiresAt;
 	}
 
 	public String getTokenType() {
@@ -64,5 +77,13 @@ public class SignUpLogInResponseData {
 
 	void setIdToken(final String idToken) {
 		this.idToken = idToken;
+	}
+
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+
+	void setRefreshToken(final String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 }

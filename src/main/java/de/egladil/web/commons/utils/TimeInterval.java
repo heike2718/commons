@@ -33,4 +33,15 @@ public class TimeInterval {
 		return endTime;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("TimeInterval [startTime=");
+		builder.append(startTime);
+		builder.append(", endTime=");
+		builder.append(endTime);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

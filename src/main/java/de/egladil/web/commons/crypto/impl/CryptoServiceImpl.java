@@ -8,6 +8,8 @@ package de.egladil.web.commons.crypto.impl;
 import java.security.MessageDigest;
 import java.util.Base64;
 
+import javax.enterprise.context.RequestScoped;
+
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.HashRequest;
@@ -21,6 +23,7 @@ import de.egladil.web.commons.crypto.CryptoService;
 /**
  * CryptoServiceImpl
  */
+@RequestScoped
 public class CryptoServiceImpl implements CryptoService {
 
 	/**
