@@ -5,7 +5,9 @@
 
 package de.egladil.web.commons.crypto.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Hash;
@@ -25,7 +27,7 @@ public class CryptoServiceImplTest {
 
 		// Arrange
 		String cryptoAlgorithm = "SHA-256";
-		String pepper = "rvLp98VcgSaZ3bwUQ5kL";
+		String pepper = "GmpxYkYuleJs4LLwbjwz";
 		final ByteSource salt = new SimpleByteSource(this.generateSalt(128));
 
 		final String base64Salt = salt.toBase64();
@@ -42,6 +44,30 @@ public class CryptoServiceImplTest {
 
 		// prüfen
 		assertTrue(service.verifyPassword(password, base64Hash, base64Salt, pepper, cryptoAlgorithm, computedHash.getIterations()));
+	}
+
+	@Test
+	void verifyPassword() {
+		// Arrange
+		String cryptoAlgorithm = "SHA-256";
+		String pepper = "GmpxYkYuleJs4LLwbjwz";
+		final ByteSource salt = new SimpleByteSource(this.generateSalt(128));
+
+		final String base64Salt = salt.toBase64();
+		System.out.println("Base64-Salt=" + base64Salt);
+		char[] password = "".toCharArray();
+		Integer iterations = 40;
+
+		CryptoServiceImpl service = new CryptoServiceImpl();
+
+		final Throwable ex = assertThrows(IllegalArgumentException.class, () -> {
+			service.verifyPassword(password, "odgoqgod", base64Salt, pepper, cryptoAlgorithm, iterations);
+		});
+
+		assertEquals("password null oder leer", ex.getMessage());
+
+
+
 	}
 
 	/**

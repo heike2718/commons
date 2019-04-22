@@ -36,9 +36,14 @@ public class CryptoServiceImpl implements CryptoService {
 	public Hash hashPassword(final char[] password, final String algorithmName, final ByteSource salt, final String pepper,
 		final Integer iterations) {
 
+		if (password == null || password.length == 0) {
+			throw new IllegalArgumentException("password null oder leer");
+		}
+
 		final HashService hashService = getHashService(pepper);
 
-		final HashRequest hashRequest = new SimpleHashRequest(algorithmName, new SimpleByteSource(password), salt, iterations);
+		final SimpleByteSource passwdByteSource = new SimpleByteSource(password);
+		final HashRequest hashRequest = new SimpleHashRequest(algorithmName, passwdByteSource, salt, iterations);
 
 		final Hash hash = hashService.computeHash(hashRequest);
 		return hash;
@@ -46,7 +51,9 @@ public class CryptoServiceImpl implements CryptoService {
 
 	@Override
 	public boolean verifyPassword(final char[] password, final String persistentHashValue, final String persistentSalt,
-		final String pepper, final String algorithmName, final int numberIterations) {
+		final String pepper, final String algorithmName, final int numberIterations) throws IllegalArgumentException {
+
+
 		final ByteSource salt = new SimpleByteSource(Base64.getDecoder().decode(persistentSalt));
 
 		final Hash expectedHash = hashPassword(password, algorithmName, salt, pepper, numberIterations);
