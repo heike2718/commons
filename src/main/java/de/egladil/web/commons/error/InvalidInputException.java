@@ -15,7 +15,7 @@ public class InvalidInputException extends RuntimeException {
 	/* serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
-	private ResponsePayload responsePayload;
+	private final ResponsePayload responsePayload;
 
 	/**
 	 * Erzeugt eine Instanz von EmailException
