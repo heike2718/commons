@@ -20,7 +20,7 @@ public class StaticContentProviderIT {
 	@Test
 	void getStaticContentSuccess() {
 		// Arrange
-		String endpoint = "http://localhost:9000/auth/public-key";
+		String endpoint = "http://localhost:9000/authprovider/auth/public-key";
 		StaticContentProvider provider = new StaticContentProvider(new ResponsePayloadReader());
 
 		// Act

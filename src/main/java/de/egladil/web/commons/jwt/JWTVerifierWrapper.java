@@ -6,23 +6,25 @@
 package de.egladil.web.commons.jwt;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import de.egladil.web.commons.error.CommonRuntimeException;
 import de.egladil.web.commons.net.ContentReader;
 import de.egladil.web.commons.net.ResponsePayloadReader;
+import de.egladil.web.commons.utils.CommonKeyUtils;
 
 /**
  * JWTVerifierWrapper wrapped einen auth0- JWTVerifyer. Der PublicKey wird nach dem ersten Aufruf gelesen und dann nicht
@@ -44,67 +46,72 @@ public class JWTVerifierWrapper {
 	}
 
 	/**
-	 * Erzeugt eine Instanz von JWTVerifierWrapper
+	 * Erzeugt eine Instanz von JWTVerifierWrapper.
 	 *
 	 * @param certificateVersion int der publicKey wird so lange gecached, wie die geforderte Version
 	 */
-	private JWTVerifierWrapper() {
+	public JWTVerifierWrapper() {
 		this.certData = null;
 	}
 
 	/**
-	 * Verifiziert das gegebene token mit dem gegebenen publicKey.
+	 * Verifiziert das gegebene token mit dem gegebenen publicKey.<br>
+	 * <br>
+	 * Aus Testgründen Sichtbarkeit erhöht.
 	 *
 	 * @param token String das token
 	 * @param publicKeyData byte[] the PublicKeyBytes
-	 * @return DecodedJWT
-	 * @throws RuntimeException bei Problemen mit Crytographie.
-	 * @throws JWTVerificationException wenn das token nicht valide ist.
+	 * @throws JWTVerificationException wenn das token manipuliert war
+	 * @throws TokenExpiredException wenn das token nicht mehr gültig ist.
+	 * @throws CommonRuntimeException bei einer IOException
 	 */
-	private DecodedJWT verify(final String token, final byte[] publicKeyData) throws RuntimeException, JWTVerificationException {
+	DecodedJWT verify(final String token, final byte[] publicKeyData)
+		throws JWTVerificationException, TokenExpiredException, CommonRuntimeException {
 
-		KeyFactory factory;
 		try {
-			factory = KeyFactory.getInstance("RSA", "BC");
-			X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyData);
-			RSAPublicKey publicKey = (RSAPublicKey) factory.generatePublic(publicKeySpec);
-			Algorithm algorithm = Algorithm.RSA256(publicKey, null);
+			PublicKey publicKey = CommonKeyUtils.getPublicKeyRSA(publicKeyData);
+			Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) publicKey, null);
 			JWTVerifier verifier = JWT.require(algorithm).withIssuer("heike2718/authprovider").build();
 			DecodedJWT jwt = verifier.verify(token);
 			return jwt;
-		} catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException e) {
-			throw new RuntimeException("", e);
+		} catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+			throw new CommonRuntimeException("Fehler beim Verifizieren eines JWT: " + e.getMessage(), e);
 		}
 	}
 
 	/**
 	 * Verifiziert das gegebene token mit dem gegebenen publicKey, der aus der URL geholt wird.
 	 *
-	 * @param token String the idToken
-	 * @param certificateUrl URL zum PublicKey
-	 * @param certificateVersion int
+	 * @param token String der JWT-String
+	 * @param String die URL, mit der der PublicKey geholt werden kann.
+	 *
 	 * @return DecodedJWT
-	 * @throws RuntimeException
-	 * @throws JWTVerificationException
+	 *
+	 * @throws JWTVerificationException wenn das token manipuliert war
+	 * @throws TokenExpiredException wenn das token nicht mehr gültig ist.
+	 * @throws CommonRuntimeException bei einer IOException
 	 */
-	public DecodedJWT verify(final String token, final String certificateUrl) throws RuntimeException, JWTVerificationException {
-
+	public DecodedJWT verify(final String token, final String certificateUrl)
+		throws JWTVerificationException, TokenExpiredException, CommonRuntimeException {
 		try {
 			if (this.certData == null) {
-
-				URL url = new URL(certificateUrl);
-				URLConnection conn = url.openConnection();
-
-				conn.setRequestProperty("Content-type", "application/json");
-				conn.setRequestProperty("Accept", "*/*");
-
-				this.certData = this.contentReader.getBytes(conn);
+				initPublicKey(certificateUrl);
 			}
 
 			return this.verify(token, this.certData);
-
 		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage(), e);
+			throw new CommonRuntimeException("IOException beim Holen des PublicKey aus URL '" + certificateUrl
+				+ "' oder beim Umwandeln in PEM: " + e.getMessage(), e);
 		}
+	}
+
+	private void initPublicKey(final String certificateUrl) throws MalformedURLException, IOException {
+		URL url = new URL(certificateUrl);
+		URLConnection conn = url.openConnection();
+
+		conn.setRequestProperty("Content-type", "application/json");
+		conn.setRequestProperty("Accept", "*/*");
+
+		this.certData = this.contentReader.getBytes(conn);
 	}
 }
