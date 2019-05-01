@@ -14,9 +14,6 @@ public class UuidStringValidator extends AbstractWhitelistValidator<UuidString, 
 
 	private static final String REGEXP = "[a-zA-Z0-9\\-]*";
 
-	/**
-	 * @see de.egladil.common.validation.validators.AbstractWhitelistValidator#getWhitelist()
-	 */
 	@Override
 	protected String getWhitelist() {
 		return REGEXP;
