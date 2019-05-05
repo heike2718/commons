@@ -40,5 +40,13 @@ public interface CryptoService {
 	boolean verifyPassword(char[] password, String persistentHashValue, String persistentSalt, String pepper, String algorithmName,
 		int numberIterations);
 
+	/**
+	 * Generiert einen Zufallsstring gegeben Länge mit den Zeichen aus charPool. Basiert auf Random.
+	 *
+	 * @param laenge int die Länge. Muss mindestens gleich 6 sein.
+	 * @param charPool die verwendeten Zeichen. Muss Mindestlänge 26 haben.
+	 * @return String
+	 */
+	public String generateKuerzel(final int length, final char[] charPool);
 
 }

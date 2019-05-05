@@ -7,6 +7,7 @@ package de.egladil.web.commons.crypto.impl;
 
 import java.security.MessageDigest;
 import java.util.Base64;
+import java.util.Random;
 
 import javax.enterprise.context.RequestScoped;
 
@@ -53,7 +54,6 @@ public class CryptoServiceImpl implements CryptoService {
 	public boolean verifyPassword(final char[] password, final String persistentHashValue, final String persistentSalt,
 		final String pepper, final String algorithmName, final int numberIterations) throws IllegalArgumentException {
 
-
 		final ByteSource salt = new SimpleByteSource(Base64.getDecoder().decode(persistentSalt));
 
 		final Hash expectedHash = hashPassword(password, algorithmName, salt, pepper, numberIterations);
@@ -71,6 +71,23 @@ public class CryptoServiceImpl implements CryptoService {
 		final DefaultHashService hashService = new DefaultHashService();
 		hashService.setPrivateSalt(new SimpleByteSource(pepper));
 		return hashService;
+	}
+
+	@Override
+	public String generateKuerzel(final int length, final char[] charPool) {
+		if (charPool == null) {
+			throw new IllegalArgumentException("charPool darf nicht null sein");
+		}
+		if (charPool.length < 26) {
+			throw new IllegalArgumentException("charPool muss mindestlaenge 26 haben");
+		}
+		final StringBuilder sb = new StringBuilder();
+		for (int loop = 0; loop < length; loop++) {
+			final int index = new Random().nextInt(charPool.length);
+			sb.append(charPool[index]);
+		}
+		final String nonce = sb.toString();
+		return nonce;
 	}
 
 }
