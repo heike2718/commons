@@ -18,8 +18,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.kumuluz.ee.logs.LogManager;
-import com.kumuluz.ee.logs.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.email.CommonEmailService;
 import de.egladil.web.commons.email.EmailDaten;
@@ -33,7 +33,7 @@ import de.egladil.web.commons.error.InvalidMailAddressException;
 @RequestScoped
 public class CommonEmailServiceImpl implements CommonEmailService {
 
-	private static final Logger LOG = LogManager.getLogger(CommonEmailServiceImpl.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(CommonEmailServiceImpl.class.getName());
 
 	@Override
 	public synchronized boolean sendMail(final EmailDaten maildaten, final EmailServiceCredentials credentials)

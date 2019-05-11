@@ -16,9 +16,8 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.kumuluz.ee.logs.LogManager;
-import com.kumuluz.ee.logs.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.error.InvalidInputException;
 import de.egladil.web.commons.payload.MessagePayload;
@@ -29,7 +28,7 @@ import de.egladil.web.commons.payload.ResponsePayload;
  */
 public class ValidationDelegate {
 
-	private static final Logger LOG = LogManager.getLogger(ValidationDelegate.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(ValidationDelegate.class);
 
 	private final Validator validator;
 

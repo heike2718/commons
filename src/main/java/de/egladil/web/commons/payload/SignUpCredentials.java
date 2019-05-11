@@ -56,7 +56,7 @@ public class SignUpCredentials {
 	private boolean agbGelesen;
 
 	@NotNull
-	ClientCredentials clientCredentials;
+	private ClientCredentials clientCredentials;
 
 	@Honeypot(message = "")
 	private String kleber;

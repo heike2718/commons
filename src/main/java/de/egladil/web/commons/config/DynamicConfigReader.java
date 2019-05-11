@@ -11,9 +11,10 @@ import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kumuluz.ee.logs.LogManager;
-import com.kumuluz.ee.logs.Logger;
 
 import de.egladil.web.commons.error.CommonConfigurationException;
 
@@ -24,7 +25,7 @@ import de.egladil.web.commons.error.CommonConfigurationException;
 @ApplicationScoped
 public class DynamicConfigReader {
 
-	private static final Logger LOG = LogManager.getLogger(DynamicConfigReader.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(DynamicConfigReader.class.getName());
 
 	@Inject
 	private ConfigRootProvider configRootProvider;

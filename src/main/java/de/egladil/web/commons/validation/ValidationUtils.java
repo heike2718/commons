@@ -21,9 +21,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.kumuluz.ee.logs.LogManager;
-import com.kumuluz.ee.logs.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.payload.MessagePayload;
 import de.egladil.web.commons.payload.ResponsePayload;
@@ -33,7 +32,7 @@ import de.egladil.web.commons.payload.ResponsePayload;
  */
 public class ValidationUtils {
 
-	private static final Logger LOG = LogManager.getLogger(ValidationUtils.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(ValidationUtils.class);
 
 	/**
 	 * Validation-Messages in verarbeitbarer Form extrahieren.
