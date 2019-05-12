@@ -94,7 +94,7 @@ public class CryptoServiceImplTest {
 		void generateClientId() {
 			// Arrange
 			final int length = 44;
-			final String algorithm = "SHA-256";
+			final String algorithm = "SHA1PRNG";
 			final String charpool = "abcdefghjklmnopqrstuvwxyz0123456789";
 
 			// Act

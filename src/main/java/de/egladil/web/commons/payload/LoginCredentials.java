@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import de.egladil.web.commons.validation.annotations.Honeypot;
+import de.egladil.web.commons.validation.annotations.LoginName;
 import de.egladil.web.commons.validation.annotations.Passwort;
-import de.egladil.web.commons.validation.annotations.StringLatin;
 import de.egladil.web.commons.validation.beans.ClientCredentials;
 
 /**
@@ -34,7 +34,7 @@ public class LoginCredentials {
 	private LoginCredentialsType loginCredentialsType;
 
 	@NotNull
-	@StringLatin
+	@LoginName
 	@Size(max = 255)
 	private String loginName;
 

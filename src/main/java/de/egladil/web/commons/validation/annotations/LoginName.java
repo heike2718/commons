@@ -22,7 +22,8 @@ import javax.validation.Payload;
 import de.egladil.web.commons.validation.LoginNameValidator;
 
 /**
- * Whitelist für Benutzernamen: Buchstaben, Ziffern, deutsche Umlaute sowie Unterstrich, Leerteichen, Minus, Punkt, Ausrufezeichen, '@'
+ * Whitelist für Benutzernamen: Buchstaben, Ziffern, deutsche Umlaute sowie Unterstrich, Leerzeichen, Minus, Punkt,
+ * Ausrufezeichen, Semikolon, Komma, '@'
  */
 @Documented
 @Retention(RUNTIME)

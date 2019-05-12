@@ -77,7 +77,7 @@ public class CryptoServiceImpl implements CryptoService {
 	@Override
 	public String generateRandomString(final String algorithm, final int length, final char[] charPool) {
 		try {
-			SecureRandom secureRandom = SecureRandom.getInstance(algorithm, BouncyCastleProvider.PROVIDER_NAME);
+			SecureRandom secureRandom = SecureRandom.getInstance(algorithm);
 			// nach ESAPI
 			StringBuilder sb = new StringBuilder();
 			for (int loop = 0; loop < length; loop++) {
