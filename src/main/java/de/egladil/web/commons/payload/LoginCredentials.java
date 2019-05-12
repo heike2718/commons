@@ -31,9 +31,6 @@ import de.egladil.web.commons.validation.beans.ClientCredentials;
 public class LoginCredentials {
 
 	@NotNull
-	private LoginCredentialsType loginCredentialsType;
-
-	@NotNull
 	@LoginName
 	@Size(max = 255)
 	private String loginName;
@@ -47,14 +44,6 @@ public class LoginCredentials {
 
 	@Honeypot(message = "")
 	private String kleber;
-
-	public LoginCredentialsType getLoginCredentialsType() {
-		return loginCredentialsType;
-	}
-
-	public void setLoginCredentialsType(final LoginCredentialsType loginCredentialsType) {
-		this.loginCredentialsType = loginCredentialsType;
-	}
 
 	public String getLoginName() {
 		return loginName;
