@@ -71,11 +71,11 @@ public class InvalidProperty {
 		return true;
 	}
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	String getMessage() {
+	public String getMessage() {
 		return message;
 	}
 
