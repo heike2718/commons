@@ -30,17 +30,20 @@ public class DynamicConfigReader {
 	@Inject
 	private ConfigRootProvider configRootProvider;
 
+	private final ObjectMapper objectMapper;
+
 	/**
 	 * DynamicConfigReader
 	 */
 	public DynamicConfigReader() {
+		this.objectMapper = new ObjectMapper();
 	}
 
 	/**
 	 * Erzeugt eine Instanz von DynamicConfigReader zu Testzwecken ohne CDI.
 	 */
 	public DynamicConfigReader(final ConfigRootProvider configRootProvider) {
-		super();
+		this();
 		this.configRootProvider = configRootProvider;
 	}
 
@@ -55,7 +58,6 @@ public class DynamicConfigReader {
 		String pathConfigFile = configRootProvider.getConfigRoot() + File.separator + configRootProvider.getNameDynamicConfigFile();
 
 		final File configFile = new File(pathConfigFile);
-		final ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			return (DynamicConfiguration) objectMapper.readValue(configFile, clazz);
 		} catch (final IOException e) {
