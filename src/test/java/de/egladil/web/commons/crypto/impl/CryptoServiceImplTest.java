@@ -95,7 +95,7 @@ public class CryptoServiceImplTest {
 			// Arrange
 			final int length = 44;
 			final String algorithm = "SHA1PRNG";
-			final String charpool = "abcdefghjklmnopqrstuvwxyz0123456789";
+			final String charpool = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghjklmnopqrstuvwxyz0123456789"; //
 
 			// Act
 			final String zufallsstring = service.generateRandomString(algorithm, length, charpool.toCharArray());
