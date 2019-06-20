@@ -5,18 +5,24 @@
 
 package de.egladil.web.commons.payload;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 /**
  * AuthenticationInfo enthält die AuthenticationInfo des authproviders. Neben Verwaltungsinfos enthält sie das JWT als
  * idToken.
  */
 public class AuthenticationInfo {
 
+	@JsonbProperty
 	private String accessToken;
 
+	@JsonbProperty
 	private int expiresInSeconds;
 
+	@JsonbProperty
 	private String tokenType;
 
+	@JsonbProperty
 	private String idToken;
 
 	public String getAccessToken() {

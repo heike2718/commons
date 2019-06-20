@@ -5,17 +5,23 @@
 
 package de.egladil.web.commons.payload;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 /**
  * HateoasLink für HATEOAS.
  */
 public class HateoasLink {
 
+	@JsonbProperty
 	private String url;
 
+	@JsonbProperty
 	private String rel;
 
+	@JsonbProperty
 	private String method;
 
+	@JsonbProperty
 	private String mediatype;
 
 	/**

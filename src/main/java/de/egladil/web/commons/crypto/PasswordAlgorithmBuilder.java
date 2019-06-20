@@ -9,7 +9,10 @@ import de.egladil.web.commons.crypto.impl.PasswordAlgorithmImpl;
 
 /**
  * PasswordAlgorithmBuilder
+ *
+ *
  */
+// TODO in public static class in der PasswordAlgorithmBuilderInstance umwandeln wegen zu viel gluecodes
 public class PasswordAlgorithmBuilder {
 
 	private String internalPepper;
