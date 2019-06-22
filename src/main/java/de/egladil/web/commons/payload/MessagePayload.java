@@ -5,13 +5,17 @@
 
 package de.egladil.web.commons.payload;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 /**
  * MessagePayload
  */
 public class MessagePayload {
 
+	@JsonbProperty
 	private String level;
 
+	@JsonbProperty
 	private String message;
 
 	/**
