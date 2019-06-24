@@ -24,8 +24,8 @@ public class CommonTimeUtilsTest {
 	void getInterval360Minuten() throws ParseException {
 
 		// Arrange
-		Date start = new SimpleDateFormat("dd.MM.yyyy").parse("22.04.2019");
-		Date end = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").parse("22.04.2019 06:00:00");
+		Date start = new SimpleDateFormat(CommonTimeUtils.DEFAULT_DATE_FORMAT).parse("22.04.2019");
+		Date end = new SimpleDateFormat(CommonTimeUtils.DEFAULT_DATE_TIME_FORMAT).parse("22.04.2019 06:00:00");
 
 		// Act
 		TimeInterval interval = CommonTimeUtils.getInterval(CommonTimeUtils.transformFromDate(start), 360, ChronoUnit.MINUTES);

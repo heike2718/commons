@@ -16,6 +16,12 @@ import java.util.Date;
  */
 public final class CommonTimeUtils {
 
+	public static final String DEFAULT_DATE_TIME_FORMAT = "dd.MM.yyyy kk:mm:ss";
+
+	public static final String DEFAULT_DATE_MINUTES_FORMAT = "dd.MM.yyyy kk:mm";
+
+	public static final String DEFAULT_DATE_FORMAT = "dd.MM.yyyy";
+
 	/**
 	 * Erzeugt eine Instanz von CommonTimeUtils
 	 */
