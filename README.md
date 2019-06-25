@@ -3,6 +3,8 @@ commonly used classes and functionality
 
 # Releases
 
+__2.0.1__ date format strings fixed: hours 0-23
+
 __2.0.0__ switch to java 11 wothout code changes
 
 __1.1.1:__ Höhere Versionen von jackson-databind und jwt-java, OWASP dependency-check-plugin aktiviert, surefire-tests mit JUnit5 aktivert
