@@ -7,6 +7,7 @@ package de.egladil.web.commons.email.impl;
 
 import java.util.Collection;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.mail.Address;
@@ -17,9 +18,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.email.CommonEmailService;
 import de.egladil.web.commons.email.EmailDaten;
@@ -33,7 +31,9 @@ import de.egladil.web.commons.error.InvalidMailAddressException;
 @RequestScoped
 public class CommonEmailServiceImpl implements CommonEmailService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CommonEmailServiceImpl.class.getName());
+	private static final String SYSPROP_JAVAX_NET_DEBUG = "javax.net.debug";
+
+	private static final Logger LOG = Logger.getLogger(CommonEmailServiceImpl.class.getName());
 
 	@Override
 	public synchronized boolean sendMail(final EmailDaten maildaten, final EmailServiceCredentials credentials)
@@ -52,9 +52,12 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 
 		final Properties mailProperties = createProperties(credentials);
 
+		char[] pwd = credentials.getPassword();
+		String prop = getSyspropLoggig();
+
 		try {
 
-			Session session = Session.getDefaultInstance(mailProperties, createMailAuthenticator(credentials));
+			Session session = Session.getDefaultInstance(mailProperties);
 
 			MimeMessage msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress(credentials.getFromAddress()));
@@ -73,11 +76,12 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 				}
 				msg.addRecipients(Message.RecipientType.BCC, addresses);
 			} else {
-				LOG.debug("HiddenEmpfaender waren null oder leer: wird ignoriert");
+				LOG.fine("HiddenEmpfaender waren null oder leer: wird ignoriert");
 			}
 
-			Transport.send(msg);
-			LOG.debug("Mail gesendet an {}", maildaten.getEmpfaenger());
+			// setSystpropLogging("error");
+			Transport.send(msg, credentials.getUser(), new String(pwd));
+			LOG.fine("Mail gesendet an " + maildaten.getEmpfaenger());
 			return true;
 		} catch (SendFailedException e) {
 			throw new InvalidMailAddressException("Mailversand: es gab ungültige Empfänger", e);
@@ -86,12 +90,10 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 			String msg = "Mail an [empfaenger=" + maildaten.alleEmpfaengerFuersLog() + "] konnte nicht versendet werden. "
 				+ smtpHostPort + ": " + e.getMessage();
 			throw new EmailException(msg, e);
+		} finally {
+			pwd = new char[0];
+			// setSystpropLogging(prop);
 		}
-	}
-
-	private MailAuthenticator createMailAuthenticator(final EmailServiceCredentials credentials) {
-		MailAuthenticator authenticator = new MailAuthenticator(credentials.getUser(), new String(credentials.getPassword()));
-		return authenticator;
 	}
 
 	private Properties createProperties(final EmailServiceCredentials credentials) {
@@ -104,7 +106,7 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 		int port = credentials.getPort();
 		mailProperties.put("mail.smtp.port", port);
 		mailProperties.put("mail.smtp.socketFactory.port", port);
-		mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		// mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		mailProperties.put("mail.smtp.socketFactory.fallback", "true");
 		return mailProperties;
 	}
@@ -116,5 +118,26 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 			sb.append(", ");
 		}
 		return sb.toString();
+	}
+
+	private String getSyspropLoggig() {
+
+		String prop = System.getProperty(SYSPROP_JAVAX_NET_DEBUG);
+
+		return prop;
+	}
+
+	@SuppressWarnings("unused")
+	private void setSystpropLogging(final String value) {
+		// @formatter:off
+		/*
+		 * Implementation of SSL logger. If the system property "javax.net.debug" is not defined, the debug logging is
+		 * turned off. If the system property "javax.net.debug" is defined as empty, the debug logger is specified by
+		 * System.getLogger("javax.net.ssl"), and applications can customize and configure the logger or use external
+		 * logging mechanisms. If the system property "javax.net.debug" is defined and non-empty, a private debug logger
+		 * implemented in this class is used.
+		 */
+		// @formatter:on
+		System.setProperty(SYSPROP_JAVAX_NET_DEBUG, value);
 	}
 }

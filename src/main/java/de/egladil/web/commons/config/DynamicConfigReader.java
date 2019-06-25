@@ -7,12 +7,10 @@ package de.egladil.web.commons.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -25,7 +23,7 @@ import de.egladil.web.commons.error.CommonConfigurationException;
 @ApplicationScoped
 public class DynamicConfigReader {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DynamicConfigReader.class.getName());
+	private static final Logger LOG = Logger.getLogger(DynamicConfigReader.class.getName());
 
 	@Inject
 	private ConfigRootProvider configRootProvider;
@@ -61,7 +59,7 @@ public class DynamicConfigReader {
 		try {
 			return (DynamicConfiguration) objectMapper.readValue(configFile, clazz);
 		} catch (final IOException e) {
-			LOG.debug(e.getMessage(), e);
+			LOG.severe(e.getMessage());
 			throw new CommonConfigurationException("Konnte Konfigurationsfile [" + pathConfigFile + "] nicht lesen:  "
 				+ e.getMessage() + " folgendes prüfen: config-root und name-dynamic-config-file in *-config.yaml", e);
 		}

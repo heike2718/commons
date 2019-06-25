@@ -8,6 +8,8 @@ package de.egladil.web.commons.validation;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 
 import javax.validation.ConstraintViolation;
@@ -16,8 +18,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.error.InvalidInputException;
 import de.egladil.web.commons.payload.MessagePayload;
@@ -28,7 +28,7 @@ import de.egladil.web.commons.payload.ResponsePayload;
  */
 public class ValidationDelegate {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ValidationDelegate.class);
+	private static final Logger LOG = Logger.getLogger(ValidationDelegate.class.getName());
 
 	private final Validator validator;
 
@@ -80,7 +80,7 @@ public class ValidationDelegate {
 	 */
 	public <T> void check(final T payload, final Class<T> clazz) {
 		if (payload == null) {
-			LOG.error("Parameter payload darf nicht null sein!");
+			LOG.severe("Parameter payload darf nicht null sein!");
 			throw new InvalidInputException(new ResponsePayload(MessagePayload.error("payload null"), payload));
 		}
 		final Set<ConstraintViolation<T>> errors = validator.validate(payload);
@@ -101,7 +101,7 @@ public class ValidationDelegate {
 			ResponsePayload responsePayload = validationUtils.toConstraintViolationMessage(errors, clazz);
 
 			if (!"INFO".equals(responsePayload.getMessage().getLevel())) {
-				LOG.warn("{}: {}", responsePayload.getMessage().getMessage(), responsePayload.getData().toString());
+				LOG.log(Level.WARNING, responsePayload.getMessage().getMessage() + ": " + responsePayload.getData().toString());
 			}
 
 			throw new InvalidInputException(responsePayload);

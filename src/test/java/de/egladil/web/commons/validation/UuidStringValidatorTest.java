@@ -10,6 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -19,8 +20,6 @@ import javax.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.validation.annotations.UuidString;
 
@@ -29,7 +28,7 @@ import de.egladil.web.commons.validation.annotations.UuidString;
  */
 public class UuidStringValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class);
+	private static final Logger LOG = Logger.getLogger(UuidStringValidatorTest.class.getSimpleName());
 
 	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
 
@@ -112,7 +111,7 @@ public class UuidStringValidatorTest {
 			assertEquals(1, errors.size());
 
 			final ConstraintViolation<TestObject> cv = errors.iterator().next();
-			LOG.debug(cv.getMessage());
+			LOG.fine(cv.getMessage());
 			assertEquals("value", cv.getPropertyPath().toString());
 		}
 

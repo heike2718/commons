@@ -15,14 +15,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.payload.MessagePayload;
 import de.egladil.web.commons.payload.ResponsePayload;
@@ -32,7 +32,7 @@ import de.egladil.web.commons.payload.ResponsePayload;
  */
 public class ValidationUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ValidationUtils.class);
+	private static final Logger LOG = Logger.getLogger(ValidationUtils.class.getName());
 
 	/**
 	 * Validation-Messages in verarbeitbarer Form extrahieren.
@@ -59,7 +59,7 @@ public class ValidationUtils {
 			String propName = path.toString();
 
 			if ("kleber".equals(propName)) {
-				LOG.warn("Possible BOT-Attac: " + propName + "=" + cv.getInvalidValue().toString());
+				LOG.log(Level.WARNING, "Possible BOT-Attac: " + propName + "=" + cv.getInvalidValue().toString());
 			}
 
 			if (fieldNames.contains(propName)) {
