@@ -5,11 +5,13 @@
 
 package de.egladil.web.commons.payload;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 /**
- * SignUpLogInResponseData enthalten die Daten, die nach einem SignUp oder einem SignIn.
+ * SignUpLogInResponseData enthalten die Daten, die nach einem SignUp oder einem LogIn zurückgegebenn werden.
  * <ul>
- * <li><strong>accessToken: </strong> autorisiert den Client gegenüber dem AuthProvider, wenn zusätzliche Daten wie email
- * und loginname gelesen werden sollen.</li>
+ * <li><strong>accessToken: </strong> autorisiert den Client gegenüber dem AuthProvider, wenn zusätzliche Daten wie
+ * email und loginname gelesen werden sollen.</li>
  * <li><strong>refreshToken: </strong> autorisiert den Client gegenüber dem AuthProvider, ein neues JWT zu holen</li>
  * <li><strong>expiresAt: </strong> Ablauf der Gültigkeit des idTokens in Millisekunden seit 1.1.1970</li>
  * <li><strong>tokenType: </strong> Bearer</li>
@@ -20,18 +22,23 @@ package de.egladil.web.commons.payload;
  */
 public class SignUpLogInResponseData {
 
+	@JsonbProperty
 	private String accessToken;
 
+	@JsonbProperty
 	private String refreshToken;
 
+	@JsonbProperty
 	private long expiresAt;
 
+	@JsonbProperty
 	private String tokenType;
 
+	@JsonbProperty
 	private AuthenticationTokenState state;
 
+	@JsonbProperty
 	private String idToken;
-
 
 	/**
 	 * Erzeugt eine Instanz von SignUpLogInResponseData

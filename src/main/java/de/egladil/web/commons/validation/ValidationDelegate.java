@@ -28,7 +28,7 @@ import de.egladil.web.commons.payload.ResponsePayload;
  */
 public class ValidationDelegate {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ValidationDelegate.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ValidationDelegate.class.getName());
 
 	private final Validator validator;
 

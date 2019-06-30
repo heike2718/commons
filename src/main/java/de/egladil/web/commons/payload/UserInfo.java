@@ -5,13 +5,17 @@
 
 package de.egladil.web.commons.payload;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 /**
  * UserInfo
  */
 public class UserInfo {
 
+	@JsonbProperty
 	private String uid;
 
+	@JsonbProperty
 	private String email;
 
 	/**
@@ -32,6 +36,7 @@ public class UserInfo {
 	public String getUid() {
 		return uid;
 	}
+
 	public String getEmail() {
 		return email;
 	}

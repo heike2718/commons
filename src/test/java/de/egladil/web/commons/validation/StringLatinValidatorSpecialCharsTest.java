@@ -28,7 +28,7 @@ import de.egladil.web.commons.validation.annotations.StringLatin;
  */
 public class StringLatinValidatorSpecialCharsTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(StringLatinValidatorSpecialCharsTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StringLatinValidatorSpecialCharsTest.class.getSimpleName());
 
 	private static final String INVALID_CHARS = "!#$%&*+:;<=>?[\\]^{|}~";
 
@@ -167,7 +167,6 @@ public class StringLatinValidatorSpecialCharsTest {
 		final TestObject testObject = new TestObject("Noée");
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
-
 
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);

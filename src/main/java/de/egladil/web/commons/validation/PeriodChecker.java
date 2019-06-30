@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PeriodChecker {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PeriodChecker.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PeriodChecker.class.getSimpleName());
 
 	/**
 	 * Vergleicht die Länge des Zeitintervalls zwischen startDate und endDate mit der erwarteten Zeitspanne.
@@ -27,8 +27,9 @@ public class PeriodChecker {
 	 */
 	public boolean isPeriodLessEqualExpectedPeriod(final Date startDate, final Date endDate, final long expectedPeriodMillis) {
 		long diff = endDate.getTime() - startDate.getTime();
-		LOG.debug("Interval: {}, Ende: {}, Start: {}, Differenz: {}", expectedPeriodMillis, endDate.getTime(), startDate.getTime(),
-			diff);
+
+		LOG.debug("Interval: {}, Ende: {}, Start: {}, Differenz: {}", expectedPeriodMillis, endDate, startDate, diff);
+
 		return diff <= expectedPeriodMillis;
 	}
 }

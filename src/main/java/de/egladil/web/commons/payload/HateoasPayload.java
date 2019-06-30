@@ -8,15 +8,20 @@ package de.egladil.web.commons.payload;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 /**
  * HateoasPayload
  */
 public class HateoasPayload {
 
+	@JsonbProperty
 	private String id;
 
+	@JsonbProperty
 	private String url;
 
+	@JsonbProperty("link")
 	private List<HateoasLink> links = new ArrayList<>();
 
 	/**

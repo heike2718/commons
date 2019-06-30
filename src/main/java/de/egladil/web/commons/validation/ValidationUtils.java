@@ -32,7 +32,7 @@ import de.egladil.web.commons.payload.ResponsePayload;
  */
 public class ValidationUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ValidationUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ValidationUtils.class.getName());
 
 	/**
 	 * Validation-Messages in verarbeitbarer Form extrahieren.
@@ -59,7 +59,7 @@ public class ValidationUtils {
 			String propName = path.toString();
 
 			if ("kleber".equals(propName)) {
-				LOG.warn("Possible BOT-Attac: " + propName + "=" + cv.getInvalidValue().toString());
+				LOG.warn("Possible BOT-Attac: {}={}", propName, cv.getInvalidValue().toString());
 			}
 
 			if (fieldNames.contains(propName)) {

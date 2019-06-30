@@ -61,7 +61,7 @@ public class DynamicConfigReader {
 		try {
 			return (DynamicConfiguration) objectMapper.readValue(configFile, clazz);
 		} catch (final IOException e) {
-			LOG.debug(e.getMessage(), e);
+			LOG.error(e.getMessage());
 			throw new CommonConfigurationException("Konnte Konfigurationsfile [" + pathConfigFile + "] nicht lesen:  "
 				+ e.getMessage() + " folgendes prüfen: config-root und name-dynamic-config-file in *-config.yaml", e);
 		}

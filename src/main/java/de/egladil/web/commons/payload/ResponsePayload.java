@@ -3,16 +3,19 @@
 // (c) Heike Winkelvoß
 //=====================================================
 
-
 package de.egladil.web.commons.payload;
+
+import javax.json.bind.annotation.JsonbProperty;
 
 /**
  * ResponsePayload
  */
 public class ResponsePayload {
 
+	@JsonbProperty
 	private MessagePayload message;
 
+	@JsonbProperty
 	private Object data;
 
 	/**

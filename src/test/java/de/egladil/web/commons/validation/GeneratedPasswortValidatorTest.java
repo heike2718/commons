@@ -28,7 +28,7 @@ import de.egladil.web.commons.validation.annotations.GeneratedPasswort;
  */
 public class GeneratedPasswortValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(GeneratedPasswortValidatorTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(GeneratedPasswortValidatorTest.class.getSimpleName());
 
 	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@- _.,'`'äöüßÄÖÜ";
 
