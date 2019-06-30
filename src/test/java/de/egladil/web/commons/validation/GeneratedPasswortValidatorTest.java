@@ -10,7 +10,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -19,6 +18,8 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.validation.annotations.GeneratedPasswort;
 
@@ -27,7 +28,7 @@ import de.egladil.web.commons.validation.annotations.GeneratedPasswort;
  */
 public class GeneratedPasswortValidatorTest {
 
-	private static final Logger LOG = Logger.getLogger(GeneratedPasswortValidatorTest.class.getSimpleName());
+	private static final Logger LOG = LoggerFactory.getLogger(GeneratedPasswortValidatorTest.class.getSimpleName());
 
 	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@- _.,'`'äöüßÄÖÜ";
 
@@ -81,7 +82,7 @@ public class GeneratedPasswortValidatorTest {
 		assertEquals(1, errors.size());
 
 		final ConstraintViolation<TestObject> cv = errors.iterator().next();
-		LOG.fine(cv.getMessage());
+		LOG.debug(cv.getMessage());
 		assertEquals("value", cv.getPropertyPath().toString());
 	}
 
@@ -102,7 +103,7 @@ public class GeneratedPasswortValidatorTest {
 		assertEquals(1, errors.size());
 
 		final ConstraintViolation<TestObject> cv = errors.iterator().next();
-		LOG.fine(cv.getMessage());
+		LOG.debug(cv.getMessage());
 		assertEquals("value", cv.getPropertyPath().toString());
 	}
 
@@ -143,7 +144,7 @@ public class GeneratedPasswortValidatorTest {
 			assertEquals(1, errors.size());
 
 			final ConstraintViolation<TestObject> cv = errors.iterator().next();
-			LOG.fine(cv.getMessage());
+			LOG.debug(cv.getMessage());
 			assertEquals("value", cv.getPropertyPath().toString());
 		}
 
