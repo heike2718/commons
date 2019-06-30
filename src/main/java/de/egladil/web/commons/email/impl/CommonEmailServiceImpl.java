@@ -7,7 +7,6 @@ package de.egladil.web.commons.email.impl;
 
 import java.util.Collection;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.mail.Address;
@@ -18,6 +17,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons.email.CommonEmailService;
 import de.egladil.web.commons.email.EmailDaten;
@@ -33,7 +35,7 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 
 	private static final String SYSPROP_JAVAX_NET_DEBUG = "javax.net.debug";
 
-	private static final Logger LOG = Logger.getLogger(CommonEmailServiceImpl.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(CommonEmailServiceImpl.class.getName());
 
 	@Override
 	public synchronized boolean sendMail(final EmailDaten maildaten, final EmailServiceCredentials credentials)
@@ -76,12 +78,12 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 				}
 				msg.addRecipients(Message.RecipientType.BCC, addresses);
 			} else {
-				LOG.fine("HiddenEmpfaender waren null oder leer: wird ignoriert");
+				LOG.debug("HiddenEmpfaender waren null oder leer: wird ignoriert");
 			}
 
 			// setSystpropLogging("error");
 			Transport.send(msg, credentials.getUser(), new String(pwd));
-			LOG.fine("Mail gesendet an " + maildaten.getEmpfaenger());
+			LOG.debug("Mail gesendet an {}", maildaten.getEmpfaenger());
 			return true;
 		} catch (SendFailedException e) {
 			throw new InvalidMailAddressException("Mailversand: es gab ungültige Empfänger", e);
