@@ -3,6 +3,8 @@ commonly used classes and functionality
 
 # Releases
 
+__2.0.3__ convenience methods for responsePayload
+
 __2.0.2__ logging changed
 
 __2.0.1__ date format strings fixed: hours 0-23
