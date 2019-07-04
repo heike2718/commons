@@ -50,7 +50,7 @@ public class MessagePayload {
 	}
 
 	public boolean isOk() {
-		return "INFO".equals(message);
+		return "INFO".equals(level);
 	}
 
 	public static MessagePayload info(final String message) {
