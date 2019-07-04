@@ -57,6 +57,10 @@ public class ResponsePayload {
 		this.data = payload;
 	}
 
+	public boolean isOk() {
+		return this.message.isOk();
+	}
+
 	public static ResponsePayload messageOnly(final MessagePayload messagePayload) {
 		return new ResponsePayload(messagePayload);
 	}

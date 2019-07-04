@@ -26,7 +26,7 @@ public class ResponsePayloadReader implements ContentReader {
 		try (InputStreamReader in = new InputStreamReader(conn.getInputStream(), "UTF-8")) {
 			ObjectMapper objectMapper = new ObjectMapper();
 			ResponsePayload payload = objectMapper.readValue(in, ResponsePayload.class);
-			if ("INFO".equals(payload.getMessage().getLevel())) {
+			if (payload.isOk()) {
 				return payload.getData().toString().getBytes();
 			}
 

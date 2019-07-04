@@ -100,7 +100,7 @@ public class ValidationDelegate {
 			final ValidationUtils validationUtils = new ValidationUtils();
 			ResponsePayload responsePayload = validationUtils.toConstraintViolationMessage(errors, clazz);
 
-			if (!"INFO".equals(responsePayload.getMessage().getLevel())) {
+			if (!responsePayload.isOk()) {
 				LOG.warn("{}: {}", responsePayload.getMessage().getMessage(), responsePayload.getData().toString());
 			}
 

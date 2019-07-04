@@ -49,6 +49,10 @@ public class MessagePayload {
 		this.message = message;
 	}
 
+	public boolean isOk() {
+		return "INFO".equals(message);
+	}
+
 	public static MessagePayload info(final String message) {
 		return new MessagePayload("INFO", message);
 	}
