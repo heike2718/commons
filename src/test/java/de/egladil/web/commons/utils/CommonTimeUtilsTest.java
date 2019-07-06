@@ -10,6 +10,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -37,4 +38,16 @@ public class CommonTimeUtilsTest {
 
 	}
 
+	@Test
+	private void getTimestamp() {
+		// Arrange
+		long expiresAt = 1555916117;
+
+		// Act
+		LocalDateTime ldt = CommonTimeUtils.transformFromDate(new Date(expiresAt));
+
+		// Assert
+		System.out.println(ldt.toString());
+
+	}
 }
