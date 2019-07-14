@@ -3,6 +3,8 @@ commonly used classes and functionality
 
 # Releases
 
+__3.0.0__ Nicht abwärtskompatible Änderungen: Client-Authentisierung mittels server-server-Kommunikation. Die Client-Secrets werden gegen ein accessToken eingetauscht, das im Frontend benutzt werden kann, so dass dieses keine Client-Secrets mehr benötigt.
+
 __2.0.4__ jwtAuth für alle projekte
 
 __2.0.3__ convenience methods for responsePayload
