@@ -13,10 +13,11 @@ import javax.json.bind.annotation.JsonbProperty;
  * <li><strong>accessToken: </strong> autorisiert den Client gegenüber dem AuthProvider, wenn zusätzliche Daten wie
  * email und loginname gelesen werden sollen.</li>
  * <li><strong>refreshToken: </strong> autorisiert den Client gegenüber dem AuthProvider, ein neues JWT zu holen</li>
- * <li><strong>expiresAt: </strong> Ablauf der Gültigkeit des idTokens in Millisekunden seit 1.1.1970</li>
+ * <li><strong>expiresAt: </strong> Ablauf der Gültigkeit des idTokens. <strong>Wegen der Kompatibilität mit dem
+ * expiresAt im JWT selbst in Sekunden seit 1.1.1970</strong></li>
  * <li><strong>tokenType: </strong> Bearer</li>
- * <li><strong>state: </strong>Kontext zur Aktion (Login, SignUp): empty, login, signup. empty kommt mit, wenn
- * Authentisierung nicht erfolgreich war?</li>
+ * <li><strong>state: </strong>Kontext zur Aktion, wird durch den Client erzeugt und unverändert wieder
+ * zurückgegeben.</li>
  * <li><strong>idToken: </strong> das JWT</li>
  * </ul>
  */
@@ -35,7 +36,7 @@ public class SignUpLogInResponseData {
 	private String tokenType;
 
 	@JsonbProperty
-	private AuthenticationTokenState state;
+	private String state;
 
 	@JsonbProperty
 	private String idToken;
@@ -70,14 +71,6 @@ public class SignUpLogInResponseData {
 		this.tokenType = tokenType;
 	}
 
-	public AuthenticationTokenState getState() {
-		return state;
-	}
-
-	public void setState(final AuthenticationTokenState state) {
-		this.state = state;
-	}
-
 	public String getIdToken() {
 		return idToken;
 	}
@@ -92,5 +85,13 @@ public class SignUpLogInResponseData {
 
 	void setRefreshToken(final String refreshToken) {
 		this.refreshToken = refreshToken;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(final String state) {
+		this.state = state;
 	}
 }

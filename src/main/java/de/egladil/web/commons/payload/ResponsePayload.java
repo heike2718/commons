@@ -7,6 +7,8 @@ package de.egladil.web.commons.payload;
 
 import javax.json.bind.annotation.JsonbProperty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * ResponsePayload
  */
@@ -57,6 +59,7 @@ public class ResponsePayload {
 		this.data = payload;
 	}
 
+	@JsonIgnore
 	public boolean isOk() {
 		return this.message.isOk();
 	}

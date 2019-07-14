@@ -7,6 +7,8 @@ package de.egladil.web.commons.payload;
 
 import javax.json.bind.annotation.JsonbProperty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * MessagePayload
  */
@@ -49,6 +51,7 @@ public class MessagePayload {
 		this.message = message;
 	}
 
+	@JsonIgnore
 	public boolean isOk() {
 		return "INFO".equals(level);
 	}

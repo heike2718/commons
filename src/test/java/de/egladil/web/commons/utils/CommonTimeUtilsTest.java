@@ -39,7 +39,7 @@ public class CommonTimeUtilsTest {
 	}
 
 	@Test
-	private void getTimestamp() {
+	void getTimestamp() {
 		// Arrange
 		long expiresAt = 1555916117;
 
@@ -50,4 +50,12 @@ public class CommonTimeUtilsTest {
 		System.out.println(ldt.toString());
 
 	}
+
+	@Test
+	void parse() throws ParseException {
+		Date date = new SimpleDateFormat(CommonTimeUtils.DEFAULT_DATE_TIME_FORMAT).parse("14.07.2019 15:59:36");
+
+		System.out.println("epoche= " + date.getTime());
+	}
+
 }
