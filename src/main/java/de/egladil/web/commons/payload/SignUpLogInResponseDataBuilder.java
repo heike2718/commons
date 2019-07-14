@@ -45,7 +45,7 @@ public class SignUpLogInResponseDataBuilder {
 		return this;
 	}
 
-	public SignUpLogInResponseDataBuilder withState(final AuthenticationTokenState state) {
+	public SignUpLogInResponseDataBuilder withState(final String state) {
 		this.result.setState(state);
 		return this;
 	}
