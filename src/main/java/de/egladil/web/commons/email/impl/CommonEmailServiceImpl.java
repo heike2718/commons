@@ -55,7 +55,6 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 		final Properties mailProperties = createProperties(credentials);
 
 		char[] pwd = credentials.getPassword();
-		String prop = getSyspropLoggig();
 
 		try {
 
@@ -120,13 +119,6 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 			sb.append(", ");
 		}
 		return sb.toString();
-	}
-
-	private String getSyspropLoggig() {
-
-		String prop = System.getProperty(SYSPROP_JAVAX_NET_DEBUG);
-
-		return prop;
 	}
 
 	@SuppressWarnings("unused")
