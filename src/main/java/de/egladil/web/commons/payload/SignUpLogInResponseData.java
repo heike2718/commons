@@ -23,6 +23,7 @@ import javax.json.bind.annotation.JsonbProperty;
  */
 public class SignUpLogInResponseData {
 
+	@Deprecated(forRemoval = true)
 	@JsonbProperty
 	private String accessToken;
 
