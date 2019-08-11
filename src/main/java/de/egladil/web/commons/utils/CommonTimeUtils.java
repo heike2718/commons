@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * CommonTimeUtils
@@ -56,5 +57,16 @@ public final class CommonTimeUtils {
 		Date endsAt = transformFromLocalDateTime(endTime);
 
 		return new TimeInterval(startsAt, endsAt);
+	}
+
+	public static LocalDateTime now() {
+
+		ZoneId systemDefaultZoneId = ZoneId.systemDefault();
+		// System.out.println(systemDefaultZoneId);
+		TimeZone tz = TimeZone.getTimeZone(systemDefaultZoneId);
+		LocalDateTime ldt = LocalDateTime.now(tz.toZoneId());
+
+		return ldt;
+
 	}
 }

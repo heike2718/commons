@@ -18,16 +18,10 @@ public class OAuthAccessTokenPayload {
 
 	private String accessToken;
 
-	private String refreshToken;
-
 	private long expiresAt;
 
 	public String getAccessToken() {
 		return accessToken;
-	}
-
-	public String getRefreshToken() {
-		return refreshToken;
 	}
 
 	public long getExpiresAt() {
@@ -36,10 +30,6 @@ public class OAuthAccessTokenPayload {
 
 	public void setAccessToken(final String accessToken) {
 		this.accessToken = accessToken;
-	}
-
-	public void setRefreshToken(final String refreshToken) {
-		this.refreshToken = refreshToken;
 	}
 
 	public void setExpiresAt(final long expiresAt) {
