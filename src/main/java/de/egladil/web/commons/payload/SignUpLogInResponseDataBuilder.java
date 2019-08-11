@@ -22,11 +22,6 @@ public class SignUpLogInResponseDataBuilder {
 		return new SignUpLogInResponseDataBuilder();
 	}
 
-	public SignUpLogInResponseDataBuilder withAccessToken(final String accessToken) {
-		this.result.setAccessToken(accessToken);
-		return this;
-	}
-
 	public SignUpLogInResponseDataBuilder withRefreshToken(final String refreshToken) {
 		this.result.setRefreshToken(refreshToken);
 		return this;

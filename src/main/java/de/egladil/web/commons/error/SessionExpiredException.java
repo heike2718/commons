@@ -14,9 +14,10 @@ public class SessionExpiredException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Erzeugt eine Instanz von SessionExpiredException
+	 * @param message
 	 */
-	public SessionExpiredException() {
+	public SessionExpiredException(final String message) {
+		super(message);
 	}
 
 }
