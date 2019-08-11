@@ -3,7 +3,7 @@ commonly used classes and functionality
 
 # Releases
 
-__4.0.0__ refreshToken aus Client-Authentisierung entfernt. Es genügt ein kurzzeitig gültiges accessToken, welches über Server-Server-Kommunikation mittels ClientSecrets rechtzeitig erneuert wird.
+__4.0.0__ refreshToken aus Client-Authentisierung entfernt. Es genügt ein kurzzeitig gültiges accessToken, welches über Server-Server-Kommunikation mittels ClientSecrets rechtzeitig erneuert wird. Außerdem: dynamic config simplified.
 
 __3.0.0__ Nicht abwärtskompatible Änderungen: Client-Authentisierung mittels server-server-Kommunikation. Die Client-Secrets werden gegen ein accessToken eingetauscht, das im Frontend benutzt werden kann, so dass dieses keine Client-Secrets mehr benötigt.
 
