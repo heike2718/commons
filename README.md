@@ -3,6 +3,8 @@ commonly used classes and functionality
 
 # Releases
 
+__4.1.0__ mover RefreshAccessTokenPayload to authprovider
+
 __4.0.1__ CVE-2019-14379, CVE-2019-14439
 
 __4.0.0__ refreshToken aus Client-Authentisierung entfernt. Es genügt ein kurzzeitig gültiges accessToken, welches über Server-Server-Kommunikation mittels ClientSecrets rechtzeitig erneuert wird. Außerdem: dynamic config simplified.
