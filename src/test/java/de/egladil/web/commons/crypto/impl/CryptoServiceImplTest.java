@@ -48,10 +48,11 @@ public class CryptoServiceImplTest {
 		final String base64Salt = salt.toBase64();
 		System.out.println("Base64-Salt=" + base64Salt);
 		char[] password = "errätst du nie hehehe".toCharArray();
-		Integer iterations = 40;
+		int iterations = 40;
+		// int iterations = 4098;
 
 		PasswordAlgorithm passworAlgorithm = PasswordAlgorithmBuilder.instance().withAlgorithmName(cryptoAlgorithm)
-			.withNumberIterations(iterations.intValue()).withPepper(pepper).build();
+			.withNumberIterations(iterations).withPepper(pepper).build();
 
 		final Hash computedHash = service.hashPassword(passworAlgorithm, password, salt);
 
@@ -63,7 +64,7 @@ public class CryptoServiceImplTest {
 	}
 
 	@Test
-	void verifyPassword() {
+	void verifyPasswordLeer() {
 		// Arrange
 		String cryptoAlgorithm = "SHA-256";
 		String pepper = "GmpxYkYuleJs4LLwbjwz";
