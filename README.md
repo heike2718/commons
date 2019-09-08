@@ -3,7 +3,9 @@ commonly used classes and functionality
 
 # Releases
 
-__4.1.0__ mover RefreshAccessTokenPayload to authprovider
+__4.2.0__ common API for serverside loggs of client errors
+
+__4.1.0__ moved RefreshAccessTokenPayload to authprovider
 
 __4.0.1__ CVE-2019-14379, CVE-2019-14439
 
