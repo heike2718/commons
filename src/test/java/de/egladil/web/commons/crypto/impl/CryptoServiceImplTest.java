@@ -1,7 +1,7 @@
-//=====================================================
+// =====================================================
 // Projekt: commons
 // (c) Heike Winkelvoß
-//=====================================================
+// =====================================================
 
 package de.egladil.web.commons.crypto.impl;
 
@@ -42,14 +42,16 @@ public class CryptoServiceImplTest {
 
 		// Arrange
 		String cryptoAlgorithm = "SHA-256";
-		String pepper = "GmpxYkYuleJs4LLwbjwz";
+		// String pepper = "GmpxYkYuleJs4LLwbjwz";
+		String pepper = "z0eiPZVJxq/xhYD1RkXACJMKqtmzMQQ9blaR+ozXMk8=";
 		final ByteSource salt = new SimpleByteSource(service.generateSalt(128));
 
 		final String base64Salt = salt.toBase64();
 		System.out.println("Base64-Salt=" + base64Salt);
-		char[] password = "errätst du nie hehehe".toCharArray();
-		int iterations = 40;
-		// int iterations = 4098;
+		// char[] password = "errätst du nie hehehe".toCharArray();
+		char[] password = "start123".toCharArray();
+		// int iterations = 40;
+		int iterations = 4098;
 
 		PasswordAlgorithm passworAlgorithm = PasswordAlgorithmBuilder.instance().withAlgorithmName(cryptoAlgorithm)
 			.withNumberIterations(iterations).withPepper(pepper).build();
@@ -65,6 +67,7 @@ public class CryptoServiceImplTest {
 
 	@Test
 	void verifyPasswordLeer() {
+
 		// Arrange
 		String cryptoAlgorithm = "SHA-256";
 		String pepper = "GmpxYkYuleJs4LLwbjwz";
@@ -79,6 +82,7 @@ public class CryptoServiceImplTest {
 			.withNumberIterations(iterations.intValue()).withPepper(pepper).build();
 
 		final Throwable ex = assertThrows(IllegalArgumentException.class, () -> {
+
 			service.verifyPassword(passworAlgorithm, password, "odgoqgod", base64Salt);
 		});
 
@@ -93,6 +97,7 @@ public class CryptoServiceImplTest {
 		@Test
 		@DisplayName("should create string with given length")
 		void generateClientId() {
+
 			// Arrange
 			final int length = 44;
 			final String algorithm = "SHA1PRNG";
@@ -114,6 +119,7 @@ public class CryptoServiceImplTest {
 		@Test
 		@DisplayName("should create salt with given length")
 		void generateSalt1() {
+
 			// Arrange
 			final int saltLengthByte = 128;
 
@@ -131,6 +137,7 @@ public class CryptoServiceImplTest {
 
 	@Test
 	public void testIterationsSha256Hash() {
+
 		final byte[] salt = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 		final Hash hash = new Sha256Hash("Hello Sha256", salt, 10);
@@ -150,12 +157,14 @@ public class CryptoServiceImplTest {
 	private void assertArrayEquals(final byte[] erstes, final byte[] zweites) {
 
 		for (int i = 0; i < erstes.length; i++) {
+
 			assertEquals("Fehler bei " + i, erstes[i], zweites[i]);
 		}
 	}
 
 	@Test
 	public void fullyConfiguredHasher() {
+
 		final ByteSource originalPassword = ByteSource.Util.bytes("Secret");
 
 		final byte[] baseSalt = { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
@@ -192,6 +201,7 @@ public class CryptoServiceImplTest {
 		@RepeatedTest(100)
 		@DisplayName("should run many times without error")
 		public void generateShortUuid_klappt() {
+
 			final String regexp = "[a-zA-Z0-9\\-]*";
 			final Pattern pattern = Pattern.compile(regexp);
 
